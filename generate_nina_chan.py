@@ -43,7 +43,7 @@ def bind_on_epoch_end(model, text, maxlen, chars, char_indices, indices_char):
 
         start_index = random.randint(0, len(text) - maxlen - 1)
         # start_index = 0
-        for diversity in [0.2]:
+        for diversity in [0.4]:
             print('----- diversity:', diversity)
 
             generated = ''
@@ -123,7 +123,7 @@ def main():
 
     history = model.fit(x, y,
                         batch_size=128,
-                        epochs=30,
+                        epochs=60,
                         callbacks=[print_callback])
 
     # Plot Training loss & Validation Loss
