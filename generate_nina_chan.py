@@ -3,7 +3,7 @@ from __future__ import print_function
 from keras.callbacks import LambdaCallback
 from keras.models import Sequential
 from keras.layers import Dense, Activation
-from keras.layers import LSTM, SimpleRNN
+from keras.layers import LSTM, SimpleRNN, GRU
 from keras.optimizers import RMSprop
 from keras.utils.data_utils import get_file
 import matplotlib.pyplot as plt  # 追加
@@ -17,7 +17,9 @@ import io
 def build_model(maxlen, chars):
     print('Build model...')
     model = Sequential()
-    model.add(SimpleRNN(64, input_shape=(maxlen, len(chars))))
+    # model.add(SimpleRNN(128, input_shape=(maxlen, len(chars))))
+    model.add(GRU(128, input_shape=(maxlen, len(chars))))
+    # model.add(LSTM(128, input_shape=(maxlen, len(chars))))
     model.add(Dense(len(chars)))
     model.add(Activation('softmax'))
 
