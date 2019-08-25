@@ -17,7 +17,7 @@ import io
 def build_model(maxlen, chars):
     print('Build model...')
     model = Sequential()
-    model.add(LSTM(128, input_shape=(maxlen, len(chars))))
+    model.add(LSTM(64, input_shape=(maxlen, len(chars))))
     model.add(Dense(len(chars)))
     model.add(Activation('softmax'))
 
@@ -43,7 +43,7 @@ def bind_on_epoch_end(model, text, maxlen, chars, char_indices, indices_char):
 
         start_index = random.randint(0, len(text) - maxlen - 1)
         # start_index = 0
-        for diversity in [0.4]:
+        for diversity in [0.2]:
             print('----- diversity:', diversity)
 
             generated = ''
@@ -51,7 +51,7 @@ def bind_on_epoch_end(model, text, maxlen, chars, char_indices, indices_char):
             generated += sentence
             print('----- Generating with seed: "' + sentence + '"')
             sys.stdout.write(generated)
-
+            # 一文字ずつ100文字まで予測
             for i in range(100):
                 x_pred = np.zeros((1, maxlen, len(chars)))
                 for t, char in enumerate(sentence):
